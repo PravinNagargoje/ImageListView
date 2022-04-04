@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         initViewModel()
     }
     
+    // Initialize tableView
     private func initView() {
         
         tableView.delegate = self
@@ -39,6 +40,7 @@ class ViewController: UIViewController {
         })
     }
     
+    // Initialize view model
     @objc private func initViewModel() {
         imageListViewModel.getRequiredData()
         imageListViewModel.reloadTableView = { [weak self] in
@@ -59,7 +61,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        imageListViewModel.listCellViewModels.count
+        imageListViewModel.items.count
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

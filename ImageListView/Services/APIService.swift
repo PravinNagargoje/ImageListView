@@ -10,6 +10,7 @@ import Foundation
 class ApiServer {
     static let shared = ApiServer()
     
+    // API service to get data using URLSession
     func getApiCall(_ strUrl: String, completionHandler:@escaping ((_ data: Data?, _ error: Error?) -> Void)) {
         guard let url = URL(string: strUrl) else {
             return

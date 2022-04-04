@@ -15,6 +15,13 @@ class ImageListCell: UITableViewCell {
     var dataImageView = UIImageView()
     var titleLabel = UILabel()
     var descriptionLabel = UILabel()
+    var cellViewModel: CellData? {
+        didSet {
+            titleLabel.text = cellViewModel?.cellTitle
+            descriptionLabel.text = cellViewModel?.cellDescription
+            dataImageView.kf.setImage(with: URL(string: cellViewModel?.cellImage ?? ""), placeholder: UIImage(named: constant.placeHolderImage))
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,17 +30,8 @@ class ImageListCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
 
-        dataImageView.layer.cornerRadius = 4.0
-        dataImageView.clipsToBounds = true
-        dataImageView.backgroundColor = .lightGray
-        
-        descriptionLabel.textColor = .gray
-        descriptionLabel.sizeToFit()
-        descriptionLabel.font = UIFont.systemFont(ofSize: 14.0)
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.lineBreakMode = .byWordWrapping
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+        formatImageView()
+        formatDescriptionLabel()
         self.setConstrains()
     }
     
@@ -41,12 +39,21 @@ class ImageListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    var cellViewModel: CellData? {
-        didSet {
-            titleLabel.text = cellViewModel?.cellTitle
-            descriptionLabel.text = cellViewModel?.cellDesc
-            dataImageView.kf.setImage(with: URL(string: cellViewModel?.cellImag ?? ""), placeholder: UIImage(named: constant.placeHolderImage))
-        }
+    // Format description text
+    private func formatDescriptionLabel() {
+        descriptionLabel.textColor = .gray
+        descriptionLabel.sizeToFit()
+        descriptionLabel.font = UIFont.systemFont(ofSize: 14.0)
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.lineBreakMode = .byWordWrapping
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    // Format cell image
+    private func formatImageView() {
+        dataImageView.layer.cornerRadius = 4.0
+        dataImageView.clipsToBounds = true
+        dataImageView.backgroundColor = .lightGray
     }
 }
 

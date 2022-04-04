@@ -14,8 +14,6 @@
 		C4A16A2F27F9BBA4000737AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A16A2E27F9BBA4000737AC /* Assets.xcassets */; };
 		C4A16A3227F9BBA4000737AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4A16A3027F9BBA4000737AC /* LaunchScreen.storyboard */; };
 		C4A16A3D27F9BBA5000737AC /* ImageListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A16A3C27F9BBA5000737AC /* ImageListViewTests.swift */; };
-		C4A16A4727F9BBA5000737AC /* ImageListViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A16A4627F9BBA5000737AC /* ImageListViewUITests.swift */; };
-		C4A16A4927F9BBA5000737AC /* ImageListViewUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A16A4827F9BBA5000737AC /* ImageListViewUITestsLaunchTests.swift */; };
 		C4A16A5B27F9BFB2000737AC /* ImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A16A5A27F9BFB2000737AC /* ImageListCell.swift */; };
 		C4A16A5D27F9C369000737AC /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A16A5C27F9C369000737AC /* DataModel.swift */; };
 		C4A16A5F27F9C3A1000737AC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A16A5E27F9C3A1000737AC /* Constants.swift */; };
@@ -59,8 +57,6 @@
 		C4A16A3827F9BBA5000737AC /* ImageListViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageListViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A16A3C27F9BBA5000737AC /* ImageListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewTests.swift; sourceTree = "<group>"; };
 		C4A16A4227F9BBA5000737AC /* ImageListViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageListViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4A16A4627F9BBA5000737AC /* ImageListViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewUITests.swift; sourceTree = "<group>"; };
-		C4A16A4827F9BBA5000737AC /* ImageListViewUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C4A16A5A27F9BFB2000737AC /* ImageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListCell.swift; sourceTree = "<group>"; };
 		C4A16A5C27F9C369000737AC /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		C4A16A5E27F9C3A1000737AC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -129,7 +125,6 @@
 			children = (
 				C4A16A2427F9BBA3000737AC /* ImageListView */,
 				C4A16A3B27F9BBA5000737AC /* ImageListViewTests */,
-				C4A16A4527F9BBA5000737AC /* ImageListViewUITests */,
 				C4A16A2327F9BBA3000737AC /* Products */,
 				86D30AC88E705AA6511EF6AE /* Pods */,
 				048E237E3323A49CFB322EC7 /* Frameworks */,
@@ -169,15 +164,6 @@
 				C4A16A3C27F9BBA5000737AC /* ImageListViewTests.swift */,
 			);
 			path = ImageListViewTests;
-			sourceTree = "<group>";
-		};
-		C4A16A4527F9BBA5000737AC /* ImageListViewUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C4A16A4627F9BBA5000737AC /* ImageListViewUITests.swift */,
-				C4A16A4827F9BBA5000737AC /* ImageListViewUITestsLaunchTests.swift */,
-			);
-			path = ImageListViewUITests;
 			sourceTree = "<group>";
 		};
 		C4A16A5527F9BE4B000737AC /* Controller */ = {
@@ -234,6 +220,7 @@
 				C4A16A1F27F9BBA3000737AC /* Frameworks */,
 				C4A16A2027F9BBA3000737AC /* Resources */,
 				78F097EE751256B6593965A6 /* [CP] Embed Pods Frameworks */,
+				C44B5AC527FB178100BF4434 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -437,6 +424,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C44B5AC527FB178100BF4434 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n";
+		};
 		F80C63EE270958717B13B176 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -484,8 +488,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4A16A4727F9BBA5000737AC /* ImageListViewUITests.swift in Sources */,
-				C4A16A4927F9BBA5000737AC /* ImageListViewUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

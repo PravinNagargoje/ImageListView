@@ -11,7 +11,7 @@ import UIKit
 class ImageListViewModel: NSObject {
     
     private let constant = Constants()
-    var listCellViewModels = [CellData]() {
+    var items = [CellData]() {
         didSet {
             reloadTableView?()
         }
@@ -25,6 +25,7 @@ class ImageListViewModel: NSObject {
     var tableTitle: String?
     var reloadTableView: (() -> Void)?
     
+    // Call data API
     func getRequiredData() {
         ApiServer.shared.getApiCall(constant.url) {[weak self] data, error in
             if error == nil {
@@ -39,7 +40,7 @@ class ImageListViewModel: NSObject {
                     for content in apiData.rows {
                         self?.setData(content: content)
                     }
-                    self?.listCellViewModels = self?.cellArray ?? []
+                    self?.items = self?.cellArray ?? []
                 } catch {
                     print(error)
                 }
@@ -49,6 +50,7 @@ class ImageListViewModel: NSObject {
         }
     }
     
+    // Set Navigation Bar Title
     func setTableTitle(title: String) {
         self.tableTitle = title
     }
@@ -60,9 +62,12 @@ class ImageListViewModel: NSObject {
     
 extension ImageListViewModel {
     
+    // Add data to array
     func setData(content: CellDataModel) {
-        let dataModel = CellData(cellTitle: content.title ?? "", cellDesc: content.rowDescription ?? "", cellImag: content.imageHref ?? "")
-        self.cellArray.append(dataModel)
+        let dataModel = CellData(cellTitle: content.title ?? "", cellDescription: content.rowDescription ?? "", cellImage: content.imageHref ?? "")
+        if content.title != nil || content.rowDescription != nil || content.imageHref != nil {
+            self.cellArray.append(dataModel)
+        }
     }
     
     func showAlert(_ message: String) {

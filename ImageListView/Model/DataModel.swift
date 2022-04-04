@@ -7,18 +7,7 @@
 
 import Foundation
 
-//struct UserData: Codable {
-//    let title: String?
-//    let rows: [CellDataModel]?
-//}
-//
-//struct CellDataModel: Codable {
-//    var title: String?
-//    var description: String?
-//    var imageHref: String?
-//}
-
-// MARK: - Welcome
+// MARK: - UserData
 struct UserData: Codable {
     let title: String
     let rows: [CellDataModel]
@@ -38,6 +27,6 @@ struct CellDataModel: Codable {
 
 struct CellData {
     var cellTitle: String
-    var cellDesc: String
-    var cellImag: String
+    var cellDescription: String
+    var cellImage: String
 }
