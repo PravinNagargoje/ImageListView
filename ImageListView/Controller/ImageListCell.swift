@@ -6,18 +6,70 @@
 //
 
 import UIKit
+import Kingfisher
+import SnapKit
 
 class ImageListCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    private let constant = Constants()
+    var dataImageView = UIImageView()
+    var titleLabel = UILabel()
+    var descriptionLabel = UILabel()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        contentView.addSubview(dataImageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(descriptionLabel)
+
+        dataImageView.layer.cornerRadius = 4.0
+        dataImageView.clipsToBounds = true
+        dataImageView.backgroundColor = .lightGray
+        
+        descriptionLabel.textColor = .gray
+        descriptionLabel.sizeToFit()
+        descriptionLabel.font = UIFont.systemFont(ofSize: 14.0)
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.lineBreakMode = .byWordWrapping
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.setConstrains()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    var cellViewModel: CellData? {
+        didSet {
+            titleLabel.text = cellViewModel?.cellTitle
+            descriptionLabel.text = cellViewModel?.cellDesc
+            dataImageView.kf.setImage(with: URL(string: cellViewModel?.cellImag ?? ""), placeholder: UIImage(named: constant.placeHolderImage))
+        }
     }
+}
 
+// Set cell constraints
+extension ImageListCell {
+    
+    func setConstrains() {
+        dataImageView.snp.makeConstraints({ make in
+            make.size.equalTo(CGSize(width: 100, height: 100))
+            make.top.equalToSuperview().offset(12)
+            make.leading.equalToSuperview().offset(10)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        })
+        titleLabel.snp.makeConstraints({ make in
+            make.top.equalTo(dataImageView.snp.top)
+            make.left.equalTo(dataImageView.snp.right).offset(10)
+            make.right.equalToSuperview().offset(-10)
+        })
+        descriptionLabel.snp.makeConstraints({ make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.left.equalTo(dataImageView.snp.right).offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        })
+    }
 }
