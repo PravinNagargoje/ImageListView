@@ -11,7 +11,6 @@ import SnapKit
 
 class ImageListCell: UITableViewCell {
 
-    private let constant = Constants()
     var dataImageView = UIImageView()
     var titleLabel = UILabel()
     var descriptionLabel = UILabel()
@@ -19,7 +18,7 @@ class ImageListCell: UITableViewCell {
         didSet {
             titleLabel.text = cellViewModel?.cellTitle
             descriptionLabel.text = cellViewModel?.cellDescription
-            dataImageView.kf.setImage(with: URL(string: cellViewModel?.cellImage ?? ""), placeholder: UIImage(named: constant.placeHolderImage))
+            dataImageView.kf.setImage(with: URL(string: cellViewModel?.cellImage ?? ""), placeholder: UIImage(named: Constants.placeHolderImage))
         }
     }
     
@@ -60,7 +59,7 @@ class ImageListCell: UITableViewCell {
 // Set cell constraints
 extension ImageListCell {
     
-    func setConstrains() {
+    private func setConstrains() {
         dataImageView.snp.makeConstraints({ make in
             make.size.equalTo(CGSize(width: 100, height: 100))
             make.top.equalToSuperview().offset(12)

@@ -10,14 +10,13 @@ import UIKit
 
 class ImageListViewModel: NSObject {
     
-    private let constant = Constants()
     var items = [CellData]() {
         didSet {
             reloadTableView?()
         }
     }
     
-    var cellArray = [CellData]() {
+    private var cellArray = [CellData]() {
         didSet {
             reloadTableView?()
         }
@@ -27,26 +26,24 @@ class ImageListViewModel: NSObject {
     
     // Call data API
     func getRequiredData() {
-        ApiServer.shared.getApiCall(constant.url) {[weak self] data, error in
-            if error == nil {
-                do {
-                    guard let data = data else {
+        if Connectivity().isInternetAvailable {
+            ApiServer.shared.getApiCall(Constants.url) {[weak self] data, error in
+                if error == nil {
+                    self?.cellArray.removeAll()
+                    guard let apiData = data as? UserData else {
                         return
                     }
-                    
-                    self?.cellArray.removeAll()
-                    let apiData = try JSONDecoder().decode(UserData.self, from: data)
                     self?.setTableTitle(title: apiData.title)
                     for content in apiData.rows {
                         self?.setData(content: content)
                     }
                     self?.items = self?.cellArray ?? []
-                } catch {
-                    print(error)
+                } else {
+                    self?.showAlert(Constants.error)
                 }
-            } else {
-                print(error as Any)
             }
+        } else {
+            self.showAlert(Constants.noInternet)
         }
     }
     
@@ -63,21 +60,10 @@ class ImageListViewModel: NSObject {
 extension ImageListViewModel {
     
     // Add data to array
-    func setData(content: CellDataModel) {
+    private func setData(content: CellDataModel) {
         let dataModel = CellData(cellTitle: content.title ?? "", cellDescription: content.rowDescription ?? "", cellImage: content.imageHref ?? "")
         if content.title != nil || content.rowDescription != nil || content.imageHref != nil {
             self.cellArray.append(dataModel)
         }
-    }
-    
-    func showAlert(_ message: String) {
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        let alert = UIAlertController(title: constant.title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: constant.ok, style: .default, handler: { _ in
-                        })
-        )
-        window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 }

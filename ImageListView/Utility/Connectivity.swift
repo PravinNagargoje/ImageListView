@@ -13,4 +13,3 @@ struct Connectivity {
         NetworkReachabilityManager()!.isReachable
     }
 }
-

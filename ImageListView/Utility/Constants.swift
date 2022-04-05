@@ -7,13 +7,14 @@
 
 import Foundation
 
-struct Constants {
-    let url = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
-    let refreshMessage = "Pull to refresh..."
-    let cellIdentifer = "ImageListCell"
-    let placeHolderImage = "placeholderIcon"
-    let ok = "Ok"
-    let title = "No Network"
-    let error = "Error in getting the data"
-    let noInternet = "No Internet Connection"
+enum Constants {
+    static let url = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
+    static let refreshMessage = "Pull to refresh..."
+    static let cellIdentifer = "ImageListCell"
+    static let placeHolderImage = "placeholderIcon"
+    static let ok = "Ok"
+    static let title = "No Network"
+    static let error = "Error in getting the data"
+    static let noInternet = "No Internet Connection"
+    static let noCellError = "Cell not available"
 }

@@ -10,7 +10,6 @@ import XCTest
 
 class ImageListViewTests: XCTestCase {
 
-    var constant = Constants()
     let tableView = UITableView()
     let dictionaryArray = NSMutableArray()
     var myDictionary = NSMutableDictionary()
@@ -25,7 +24,7 @@ class ImageListViewTests: XCTestCase {
         self.viewController.viewDidLoad()
         tableView.delegate = viewController.self
         tableView.dataSource = viewController.self
-        tableView.register(ImageListCell.self, forCellReuseIdentifier: constant.cellIdentifer)
+        tableView.register(ImageListCell.self, forCellReuseIdentifier: Constants.cellIdentifer)
         
         for index in 1...7 {
             let item: NSDictionary = [
@@ -79,23 +78,11 @@ class ImageListViewTests: XCTestCase {
     }
 
     func testTableCellData() {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: constant.cellIdentifer, for: IndexPath(row: 0, section: 0)) as? ImageListCell else {
-                fatalError(constant.error)
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifer, for: IndexPath(row: 0, section: 0)) as? ImageListCell else {
+                fatalError(Constants.error)
         }
         XCTAssertNil(cell.titleLabel.text)
         XCTAssertNil(cell.descriptionLabel.text)
         XCTAssertNil(cell.dataImageView.image)
-    }
-    
-    func testAPICall() {
-        let expectation = XCTestExpectation(description: "Data")
-        service.getApiCall(Constants().url, completionHandler: { _, error in
-            if error != nil {
-                XCTFail("Fail")
-            }
-            expectation.fulfill()
-            
-            self.waitForExpectations(timeout: 2, handler: nil)
-        })
     }
 }

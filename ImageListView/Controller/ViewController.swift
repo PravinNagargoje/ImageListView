@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     
     private let tableView = UITableView()
     private let refreshTableView = UIRefreshControl()
-    private let constant = Constants()
     lazy var imageListViewModel = {
         ImageListViewModel()
     }()
@@ -29,10 +28,10 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
-        tableView.register(ImageListCell.self, forCellReuseIdentifier: constant.cellIdentifer)
+        tableView.register(ImageListCell.self, forCellReuseIdentifier: Constants.cellIdentifer)
         refreshTableView.addTarget(self, action: #selector(initViewModel), for: .valueChanged)
         
-        refreshTableView.attributedTitle = NSAttributedString(string: constant.refreshMessage)
+        refreshTableView.attributedTitle = NSAttributedString(string: Constants.refreshMessage)
         tableView.addSubview(refreshTableView)
         
         tableView.snp.makeConstraints({ make in
@@ -65,9 +64,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ImageListCell = tableView.dequeueReusableCell(
-            withIdentifier: constant.cellIdentifer, for: indexPath
-        ) as! ImageListCell
+        guard let cell: ImageListCell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.cellIdentifer, for: indexPath
+        ) as? ImageListCell else {
+            fatalError(Constants.noCellError)
+        }
         cell.cellViewModel = imageListViewModel.getCellData(at: indexPath)
         return cell
     }
