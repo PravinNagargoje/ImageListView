@@ -29,22 +29,26 @@ class ImageListViewModel: NSObject {
         if Connectivity().isInternetAvailable {
             ApiServer.shared.getApiCall(Constants.url) {[weak self] data, error in
                 if error == nil {
-                    self?.cellArray.removeAll()
-                    guard let apiData = data as? UserData else {
-                        return
-                    }
-                    self?.setTableTitle(title: apiData.title)
-                    for content in apiData.rows {
-                        self?.setData(content: content)
-                    }
-                    self?.items = self?.cellArray ?? []
+                    self?.retriveAndSetData(data: data)
                 } else {
-                    self?.showAlert(Constants.error)
+                    Alert.showAlert(Constants.error)
                 }
             }
         } else {
-            self.showAlert(Constants.noInternet)
+            Alert.showAlert(Constants.noInternet)
         }
+    }
+    
+    func retriveAndSetData(data: Any) {
+        self.cellArray.removeAll()
+        guard let apiData = data as? UserData else {
+            return
+        }
+        self.setTableTitle(title: apiData.title)
+        for content in apiData.rows {
+            self.setData(content: content)
+        }
+        self.items = self.cellArray
     }
     
     // Set Navigation Bar Title
@@ -57,7 +61,7 @@ class ImageListViewModel: NSObject {
     }
 }
     
-extension ImageListViewModel {
+private extension ImageListViewModel {
     
     // Add data to array
     private func setData(content: CellDataModel) {

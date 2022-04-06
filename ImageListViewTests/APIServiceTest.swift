@@ -15,12 +15,24 @@ class APIServiceTest: XCTestCase {
     
     func testAPICall() {
         let expectation = XCTestExpectation(description: "Data")
-        service.getApiCall(Constants.url, completionHandler: { _, error in
+        ApiServer.shared.getApiCall(Constants.url, completionHandler: {[weak self] data, error in
             if error != nil {
                 XCTFail("Fail")
             }
             expectation.fulfill()
-            self.waitForExpectations(timeout: 2, handler: nil)
+            self?.waitForExpectations(timeout: 20, handler: nil)
         })
     }
+    
+    func testAPICallError() {
+        let expectation = XCTestExpectation(description: "Data")
+        ApiServer.shared.getApiCall("123", completionHandler: {[weak self] data, error in
+            if error == nil {
+                XCTFail("Fail")
+            }
+            expectation.fulfill()
+            self?.waitForExpectations(timeout: 20, handler: nil)
+        })
+    }
+    
 }

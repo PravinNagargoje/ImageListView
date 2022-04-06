@@ -29,27 +29,8 @@ class ApiServer {
                 let apiData = try JSONDecoder().decode(UserData.self, from: newData)
                 completionHandler(apiData, error)
             } catch {
-                
+                Alert.showAlert(Constants.parsingError)
             }
-            
-            
         }.resume()
     }
 }
-
-enum Result<Success, Error: Swift.Error> {
-    case success(Success)
-    case failure(Error)
-}
-
-extension Result {
-    func get() throws -> Success {
-        switch self {
-        case .success(let value):
-            return value
-        case .failure(let error):
-            throw error
-        }
-    }
-}
-

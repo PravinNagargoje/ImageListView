@@ -17,4 +17,5 @@ enum Constants {
     static let error = "Error in getting the data"
     static let noInternet = "No Internet Connection"
     static let noCellError = "Cell not available"
+    static let parsingError = "Ivalid data received"
 }

@@ -10,8 +10,8 @@ import SnapKit
 
 class ViewController: UIViewController {
     
-    private let tableView = UITableView()
-    private let refreshTableView = UIRefreshControl()
+    let tableView = UITableView()
+    let refreshTableView = UIRefreshControl()
     lazy var imageListViewModel = {
         ImageListViewModel()
     }()
@@ -55,15 +55,15 @@ class ViewController: UIViewController {
 // TableView DataSource and Delegate methods
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
-    internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
     
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         imageListViewModel.items.count
     }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: ImageListCell = tableView.dequeueReusableCell(
             withIdentifier: Constants.cellIdentifer, for: indexPath
         ) as? ImageListCell else {

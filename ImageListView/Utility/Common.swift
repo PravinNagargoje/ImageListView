@@ -7,15 +7,13 @@
 
 import UIKit
 
-extension NSObject {
-    func showAlert(_ message: String) {
+enum Alert {
+    static func showAlert(_ message: String) {
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         let window = windowScene?.windows.first
         let alert = UIAlertController(title: Constants.title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Constants.ok, style: .default, handler: { _ in
-                        })
-        )
+        alert.addAction(UIAlertAction(title: Constants.ok, style: .default, handler: nil))
         window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 }

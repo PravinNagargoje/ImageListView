@@ -37,7 +37,10 @@ class ImageListCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
+extension ImageListCell {
+    
     // Format description text
     private func formatDescriptionLabel() {
         descriptionLabel.textColor = .gray
@@ -54,11 +57,8 @@ class ImageListCell: UITableViewCell {
         dataImageView.clipsToBounds = true
         dataImageView.backgroundColor = .lightGray
     }
-}
-
-// Set cell constraints
-extension ImageListCell {
     
+    // Set cell constraints
     private func setConstrains() {
         dataImageView.snp.makeConstraints({ make in
             make.size.equalTo(CGSize(width: 100, height: 100))

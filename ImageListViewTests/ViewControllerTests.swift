@@ -8,12 +8,11 @@
 import XCTest
 @testable import ImageListView
 
-class ImageListViewTests: XCTestCase {
+class ViewControllerTests: XCTestCase {
 
     let tableView = UITableView()
     let dictionaryArray = NSMutableArray()
     var myDictionary = NSMutableDictionary()
-    var datasource = ImageListViewModel()
     var service = ApiServer()
     var viewController: ViewController!
     
@@ -42,7 +41,7 @@ class ImageListViewTests: XCTestCase {
         dictionaryArray.removeAllObjects()
         self.viewController.endAppearanceTransition()
     }
-  
+    
     func testTableViewIsPresent() {
         XCTAssertNotNil(self.tableView)
     }
@@ -73,6 +72,11 @@ class ImageListViewTests: XCTestCase {
         XCTAssertTrue(
             self.viewController.responds(
             to: #selector(self.viewController.tableView(_:cellForRowAt:))
+            )
+        )
+        XCTAssertTrue(
+            self.viewController.responds(
+            to: #selector(self.viewController.tableView(_:heightForRowAt:))
             )
         )
     }
