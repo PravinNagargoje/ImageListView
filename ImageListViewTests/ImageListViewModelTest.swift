@@ -11,28 +11,45 @@ import XCTest
 class ImageListViewModelTest: XCTestCase {
 
     var imageListViewModel: ImageListViewModel!
-    var dataArray = NSMutableArray()
-    var myDictionary = NSMutableDictionary()
+    var dataArray = [CellDataModel]()
+    var myDictionary: UserData!
+    var viewController: ViewController!
     
     override func setUpWithError() throws {
         self.imageListViewModel = ImageListViewModel()
-        for index in 1...7 {
-            let item: NSDictionary = [
-                "title": "title \(index)",
-                "description": "description \(index)",
-                "imageHref": "image \(index)"
-            ]
-            dataArray.add(item)
-        }
-        self.myDictionary = ["title":"About Canada","rows": dataArray]
+        self.addData()
+        self.myDictionary = UserData(title: "About Canada", rows: dataArray)
     }
 
     override func tearDownWithError() throws {
-        dataArray.removeAllObjects()
+        dataArray.removeAll()
     }
 
+    func addData() {
+        for index in 1...7 {
+            let item: CellDataModel = CellDataModel(title: "title \(index)", rowDescription: "description \(index)", imageHref: "image \(index)")
+            dataArray.append(item)
+        }
+        let item2: CellDataModel = CellDataModel(title: nil, rowDescription: nil, imageHref: nil)
+        dataArray.append(item2)
+        let item3: CellDataModel = CellDataModel(title: "", rowDescription: "", imageHref: "")
+        dataArray.append(item3)
+    }
+    
     func testExample() throws {
+        imageListViewModel.retriveAndSetData(data: "")
         imageListViewModel.retriveAndSetData(data: myDictionary as Any)
+        XCTAssert(imageListViewModel.cellArray.count > 0)
+    }
+    
+    func testCellData() {
+        imageListViewModel.retriveAndSetData(data: myDictionary as Any)
+        let data = imageListViewModel.getCellData(at: IndexPath(row: 0, section: 0))
+        XCTAssertEqual(data.cellTitle, "title 1")
+    }
+    
+    func testAPI() {
+        imageListViewModel.getRequiredData(url: "")
     }
 
     func testPerformanceExample() throws {

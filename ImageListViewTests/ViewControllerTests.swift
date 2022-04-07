@@ -10,35 +10,33 @@ import XCTest
 
 class ViewControllerTests: XCTestCase {
 
-    let tableView = UITableView()
-    let dictionaryArray = NSMutableArray()
-    var myDictionary = NSMutableDictionary()
+    var tableView: UITableView!
+    var dictionaryArray = [CellData]()
     var service = ApiServer()
     var viewController: ViewController!
+    var imageListViewModel: ImageListViewModel!
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         self.viewController = ViewController()
+        self.imageListViewModel = ImageListViewModel()
+        self.tableView = viewController.tableView
         self.viewController.loadView()
         self.viewController.viewDidLoad()
+        viewController.beginAppearanceTransition(true, animated: false)
         tableView.delegate = viewController.self
         tableView.dataSource = viewController.self
         tableView.register(ImageListCell.self, forCellReuseIdentifier: Constants.cellIdentifer)
         
         for index in 1...7 {
-            let item: NSDictionary = [
-                "title": "title \(index)",
-                "description": "description \(index)",
-                "imageHref": "image \(index)"
-            ]
-            dictionaryArray.add(item)
+            let item: CellData = CellData(cellTitle: "title \(index)", cellDescription: "description \(index)", cellImage: "image \(index)")
+            dictionaryArray.append(item)
         }
-        self.myDictionary = ["rows": dictionaryArray]
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        dictionaryArray.removeAllObjects()
+        dictionaryArray.removeAll()
         self.viewController.endAppearanceTransition()
     }
     
@@ -82,11 +80,12 @@ class ViewControllerTests: XCTestCase {
     }
 
     func testTableCellData() {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifer, for: IndexPath(row: 0, section: 0)) as? ImageListCell else {
+        viewController.imageListViewModel.cellArray = dictionaryArray
+        guard let cell = tableView.dataSource?.tableView(tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? ImageListCell else {
                 fatalError(Constants.error)
         }
-        XCTAssertNil(cell.titleLabel.text)
-        XCTAssertNil(cell.descriptionLabel.text)
-        XCTAssertNil(cell.dataImageView.image)
+        
+        XCTAssertEqual("title 1", cell.titleLabel.text)
+        XCTAssertEqual("description 1", cell.descriptionLabel.text)
     }
 }

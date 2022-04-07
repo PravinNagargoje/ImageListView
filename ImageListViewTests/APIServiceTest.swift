@@ -34,5 +34,4 @@ class APIServiceTest: XCTestCase {
             self?.waitForExpectations(timeout: 20, handler: nil)
         })
     }
-    
 }

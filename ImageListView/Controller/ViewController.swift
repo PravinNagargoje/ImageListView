@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     // Initialize tableView
     private func initView() {
         
+        // register tableview delegate and datasource
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
@@ -41,7 +42,7 @@ class ViewController: UIViewController {
     
     // Initialize view model
     @objc private func initViewModel() {
-        imageListViewModel.getRequiredData()
+        imageListViewModel.getRequiredData(url: Constants.url)
         imageListViewModel.reloadTableView = { [weak self] in
             DispatchQueue.main.async {
                 self?.navigationItem.title = self?.imageListViewModel.tableTitle

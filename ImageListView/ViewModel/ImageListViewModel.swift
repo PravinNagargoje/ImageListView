@@ -16,7 +16,7 @@ class ImageListViewModel: NSObject {
         }
     }
     
-    private var cellArray = [CellData]() {
+    var cellArray = [CellData]() {
         didSet {
             reloadTableView?()
         }
@@ -25,9 +25,9 @@ class ImageListViewModel: NSObject {
     var reloadTableView: (() -> Void)?
     
     // Call data API
-    func getRequiredData() {
+    func getRequiredData(url: String) {
         if Connectivity().isInternetAvailable {
-            ApiServer.shared.getApiCall(Constants.url) {[weak self] data, error in
+            ApiServer.shared.getApiCall(url) {[weak self] data, error in
                 if error == nil {
                     self?.retriveAndSetData(data: data)
                 } else {
