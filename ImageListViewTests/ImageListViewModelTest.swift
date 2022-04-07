@@ -47,16 +47,4 @@ class ImageListViewModelTest: XCTestCase {
         let data = imageListViewModel.getCellData(at: IndexPath(row: 0, section: 0))
         XCTAssertEqual(data.cellTitle, "title 1")
     }
-    
-    func testAPI() {
-        imageListViewModel.getRequiredData(url: "")
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
